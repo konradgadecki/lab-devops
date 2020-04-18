@@ -1,0 +1,2 @@
+FROM nginx:alpine
+RUN echo "<html><body>Hello World</body></html>" > /usr/share/nginx/html/hello.html
