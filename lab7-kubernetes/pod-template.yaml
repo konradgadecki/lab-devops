@@ -1,0 +1,17 @@
+apiVersion: v1
+
+# rodzaj bytu jaki tworzymy
+kind: Pod 
+
+#dostarcza opis
+metadata:
+    name: myapp-pod
+    labels:
+        app: myapp
+        type: frontend
+
+#okresla dokladnie byt ktory definiujemy
+spec:
+    containers:
+        - name: my-nginx-container
+          image: nginx
