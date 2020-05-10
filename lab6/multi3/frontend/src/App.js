@@ -1,12 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+  
+    this.state = {
+      cases : "",
+      deaths: "",
+      hello_response: "",
+      death_rate: "",
+      history: [] 
+    };
+  }
+
   handleClick = async () => {
     console.log("sending request to /api/...");
-    const helloResponse = await axios.get('/apij');
+    const helloResponse = await axios.get('/api/');
+    this.setState({hello_response: helloResponse.data})
     console.log(helloResponse);
   }
   
@@ -21,14 +33,22 @@ class App extends React.Component {
       deaths
     };
 
-    await axios.post("http://localhost:5000/api/rate", rate);
+    const response = await axios.post("/api/rate", rate);
+    console.log(response);
+
+    this.setState({death_rate: response.data});
   };
 
   onChangeForm = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  state = { cases : "", deaths: "" }
+  fetchHistory = async () => {
+    const response = await axios.get('/api/history');
+    console.log(response);
+
+    this.setState({history: response.data});
+  }
 
   render () {
     
@@ -37,58 +57,55 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <dix>
             <button onClick={this.handleClick}>Send request to backend</button>
-
-            <div>
-          <div className="card mb-3">
-            <div className="card-header">Count death rate</div>
-            <div className="card-body">
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label htmlFor="cases">Cases</label>
+            <br />
+            <br />
+              {this.state.hello_response}
+            <br />
+            <br />
+            <div className="card mb-3">
+              <div className="card-header">Count death rate</div>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="cases">Cases</label>
+                    <input
+                      type="text"
+                      name="cases"
+                      className="form-control form-control-lg"
+                      placeholder="Enter cases..."
+                      defaultValue={cases}
+                      onChange={this.onChangeForm}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="deaths">Deaths</label>
+                    <input
+                      type="text"
+                      name="deaths"
+                      className="form-control form-control-lg"
+                      placeholder="Enter deaths..."
+                      defaultValue={deaths}
+                      onChange={this.onChangeForm}
+                    />
+                  </div>
                   <input
-                    type="text"
-                    name="cases"
-                    className="form-control form-control-lg"
-                    placeholder="Enter cases..."
-                    defaultValue={cases}
-                    onChange={this.onChangeForm}
+                    type="submit"
+                    value="Count rate"
+                    className="btn btn-light btn-block"
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="deaths">Deaths</label>
-                  <input
-                    type="text"
-                    name="deaths"
-                    className="form-control form-control-lg"
-                    placeholder="Enter deaths..."
-                    defaultValue={deaths}
-                    onChange={this.onChangeForm}
-                  />
-                </div>
-                <input
-                  type="submit"
-                  value="Count rate"
-                  className="btn btn-light btn-block"
-                />
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
+            <br />
+            {this.state.death_rate}
+
+            <h4>History of fatality rate:</h4>
+            <button type="button" onClick={this.fetchHistory}>Fetch</button>
+            <br />
+            {this.state.history.map((item, i) => <p key={i}>{item["rate"]}</p>)}
           </dix>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
