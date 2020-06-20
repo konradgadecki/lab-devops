@@ -18,7 +18,7 @@
 2. execute shutdown.bat
 3. execute startup.bat
 
-# How to use try out?
+# How to try out?
 ##Frontend
  is exposed in to ways: through Ingress and NodePort.
 To access it via Ingress, browse: https://localhost
