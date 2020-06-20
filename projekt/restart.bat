@@ -1,0 +1,2 @@
+./shutdown.bat
+./startup.bat

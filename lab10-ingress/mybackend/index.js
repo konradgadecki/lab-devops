@@ -20,6 +20,10 @@ app.get("/", (req, resp) => {
 
     });
 });
+
+app.get("/api/", (req, resp) => {
+    console.log("gowno");
+});
  
 app.listen(keys.backendPort, () =>{
     console.log(`Backend is lisening on port ${keys.backendPort}...`);
