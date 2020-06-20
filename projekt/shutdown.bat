@@ -6,7 +6,6 @@ kubectl delete deploy my-backend-project-deployment
 kubectl delete svc my-postgres-project-service
 kubectl delete deploy my-postgres-project-deployment
 kubectl delete secret my-postgres-project-secret
-kubectl delete pvc my-postgres-project-pvc
 kubectl delete svc my-redis-project-service
 kubectl delete deploy my-redis-project-deployment
-kubectl delete configmap my-app-project-configmap
+kubectl delete configmap myapp-project-configmap

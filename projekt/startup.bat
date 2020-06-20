@@ -5,7 +5,6 @@ kubectl apply -f ./my-ingress-service.yml
 kubectl apply -f ./myapp-configmap.yml
 kubectl apply -f ./my-redis-deployment.yml
 kubectl apply -f ./my-redis-service.yml
-kubectl apply -f ./my-postgres-pvc.yml
 kubectl apply -f ./my-postgres-secret.yml
 kubectl apply -f ./my-postgres-deployment.yml
 kubectl apply -f ./my-postgres-service.yml

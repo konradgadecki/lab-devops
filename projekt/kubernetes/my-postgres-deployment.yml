@@ -24,10 +24,6 @@ spec:
             containers:
                 - name: my-postgres-project-container
                   image: postgres
-                  volumeMounts:
-                    - mountPath: /var/lib/postgresql/data
-                      subPath: postgres
-                      name: postgresvolume
                   env:
                     - name: POSTGRES_PASSWORD
                       valueFrom:
@@ -39,6 +35,10 @@ spec:
                         configMapKeyRef:
                             name: myapp-project-configmap
                             key: PGUSER
+                  volumeMounts:
+                    - mountPath: /var/lib/postgresql/data
+                      subPath: postgres
+                      name: postgresvolume
 
     replicas: 1
     selector:
