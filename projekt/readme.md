@@ -21,8 +21,12 @@
 # How to try out?
 ##Frontend
  is exposed in to ways: through Ingress and NodePort.
-To access it via Ingress, browse: https://localhost
+To access it via Ingress, browse: https://localhost https://localhost/api
 To access it bypassing Ingreess, browse: http://localhost:30009
+
+Access kubernetes redis: kubectl exec -it <pod_id> -- redis-cli
+Access kubernetes postgres: kubectl exec -it <pod_id> -- /bin/sh
+Log on to postgres DB: psql -U postgres
 
 ##Backend
  is exposed through default type of kube service: ClusterIP
@@ -31,3 +35,4 @@ It is possible though to reach it using Ingress, browsing: https://localhost/api
 
 ##Ingress
 acts as a “smart router” or entrypoint into your cluster. In default configuration Ingress works as a Load Balancer 
+
